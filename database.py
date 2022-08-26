@@ -1,11 +1,14 @@
 import json
 import sqlite3
 
+
 def get_database_driver_name(driver):
     print(driver.name)
 
+
 class DatabaseDriver:
-    name = "BaseDriver" 
+    name = "BaseDriver"
+
     def db_write(self, dict):
         raise NotImplementedError('Переопределите метод db_write')
 
@@ -16,13 +19,11 @@ class DatabaseDriver:
         print(self.name)
 
 
-
-
 class TextDatabaseDriver(DatabaseDriver):
     name = "TextDriver"
 
     def db_write(self, new_dict):
-        with open('database.txt', 'w') as file:
+        with open('database.txt', 'w', encoding="utf8") as file:
             file.write(json.dumps(new_dict))
 
     def db_read(self) -> dict:
@@ -32,7 +33,6 @@ class TextDatabaseDriver(DatabaseDriver):
                 return data
         except FileNotFoundError:
             return dict()
-             
 
 
 class SQLiteDatabaseDriver(DatabaseDriver):
@@ -53,7 +53,7 @@ class SQLiteDatabaseDriver(DatabaseDriver):
         connect = sqlite3.connect('db.sqlite3')
         cursor = connect.cursor()
         cursor.execute('SELECT * FROM mood_list')
-        data_list=cursor.fetchall()
+        data_list = cursor.fetchall()
         for item in data_list:
             print(item)
         cursor.close()

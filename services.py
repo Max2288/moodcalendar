@@ -13,6 +13,7 @@ def help():
         """
     )
 
+
 def set(mood):
     date = datetime.datetime.now().date()
     day = date.strftime('%d.%m.%Y')
@@ -23,16 +24,20 @@ def set(mood):
     mood_list[day] = mood
     db.db_write(mood_list)
 
+
 def get():
     db = TextDatabaseDriver()
     mood_list = db.db_read()
+    """
     for day in mood_list:
         day_print_format = 'Day: %s, Mood: %s'
         return (day_print_format % (day, mood_list[day]))    
+        """
+    return mood_list
+
 
 dispatcher = {
     'help': help,
     'set': set,
-    'get' : get
+    'get': get
 }
-
