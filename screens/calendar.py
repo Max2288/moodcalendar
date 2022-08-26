@@ -22,10 +22,10 @@ class CalendarScreen(Screen):
 
     def __init__(self, **kw):
         super().__init__(**kw)
-        box = BoxLayout(orientation='vertical')
+        box = BoxLayout(orientation='vertical',size_hint=(None, None))
         box.add_widget(
             Label(text='Календарь настроения, ' + month_names[self.current_month]))
-        self.main_box = BoxLayout(orientation="vertical", )
+        self.main_box = BoxLayout(orientation="vertical")
         self.reload_calendar(None)
         self.add_widget(self.main_box)
 
@@ -39,7 +39,7 @@ class CalendarScreen(Screen):
         self.main_box.clear_widgets()
         moods = get()
         for week_num in range(5):
-            week = BoxLayout(orientation="horizontal", size_hint=(None, None))
+            week = BoxLayout(orientation="horizontal")
             for day in range(1, 8):
                 date = f"{(day+week_num*7):02d}.{self.current_month:02d}.2022"
                 try:
